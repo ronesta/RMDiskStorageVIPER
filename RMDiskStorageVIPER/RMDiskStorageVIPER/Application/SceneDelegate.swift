@@ -19,10 +19,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let window  = UIWindow(windowScene: windowScene)
 
-        let viewController = CharacterViewController()
-        let navigationControllet = UINavigationController(rootViewController: viewController)
+        let initialViewController = CharacterRouter.createModule()
 
-        window.rootViewController = navigationControllet
+        window.rootViewController = initialViewController
         self.window = window
         window.makeKeyAndVisible()
     }
