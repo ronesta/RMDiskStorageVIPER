@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import UIKit
+import UIKit.UIImage
 
 protocol NetworkManagerProtocol {
     func getCharacters(completion: @escaping (Result<[Character], Error>) -> Void)

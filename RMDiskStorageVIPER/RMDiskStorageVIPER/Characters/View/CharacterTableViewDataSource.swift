@@ -9,11 +9,11 @@ import Foundation
 import UIKit
 
 final class CharacterTableViewDataSource: NSObject, CharacterDataSourceProtocol {
-    var networkManager: NetworkManagerProtocol?
+    private let presenter: CharacterPresenterProtocol
     var characters = [Character]()
 
-    init(networkManager: NetworkManagerProtocol?) {
-        self.networkManager = networkManager
+    init(presenter: CharacterPresenterProtocol) {
+        self.presenter = presenter
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -28,11 +28,10 @@ final class CharacterTableViewDataSource: NSObject, CharacterDataSourceProtocol 
         }
 
         let character = characters[indexPath.row]
-        let imageURL = character.image
 
-        networkManager?.loadImage(from: imageURL) { loadedImage in
+        presenter.fetchImage(for: character) { loadedImage in
             DispatchQueue.main.async {
-                guard let cell = tableView.cellForRow(at: indexPath) as? CharacterTableViewCell  else {
+                guard let cell = tableView.cellForRow(at: indexPath) as? CharacterTableViewCell else {
                     return
                 }
                 cell.configure(with: character, image: loadedImage)

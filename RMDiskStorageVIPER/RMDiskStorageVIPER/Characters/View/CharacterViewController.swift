@@ -9,8 +9,8 @@ import UIKit
 import SnapKit
 
 final class CharacterViewController: UIViewController {
-    var presenter: CharacterPresenterProtocol?
-    var dataSource: CharacterDataSourceProtocol?
+    private let presenter: CharacterPresenterProtocol
+    private let dataSource: CharacterDataSourceProtocol
 
     private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
@@ -18,11 +18,23 @@ final class CharacterViewController: UIViewController {
         return tableView
     }()
 
+    init(presenter: CharacterPresenterProtocol,
+         dataSource: CharacterDataSourceProtocol
+    ) {
+        self.presenter = presenter
+        self.dataSource = dataSource
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
         setupViews()
-        presenter?.viewDidLoad()
+        presenter.viewDidLoad()
     }
 
     private func setupNavigationBar() {
@@ -49,7 +61,7 @@ final class CharacterViewController: UIViewController {
 // MARK: - CharacterViewProtocol
 extension CharacterViewController: CharacterViewProtocol {
     func displayCharacters(_ characters: [Character]) {
-        dataSource?.characters = characters
+        dataSource.characters = characters
         tableView.reloadData()
     }
 

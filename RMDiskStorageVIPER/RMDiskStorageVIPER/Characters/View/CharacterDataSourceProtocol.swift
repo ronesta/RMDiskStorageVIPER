@@ -10,5 +10,4 @@ import UIKit
 
 protocol CharacterDataSourceProtocol: UITableViewDataSource {
     var characters: [Character] { get set }
-    var networkManager: NetworkManagerProtocol? { get set }
 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit.UIImage
 
 final class CharacterPresenter: CharacterPresenterProtocol {
     weak var view: CharacterViewProtocol?
@@ -22,5 +23,9 @@ final class CharacterPresenter: CharacterPresenterProtocol {
 
     func charactersFetchFailed(with error: Error) {
         view?.displayError("Failed to load characters: \(error.localizedDescription)")
+    }
+
+    func fetchImage(for character: Character, completion: @escaping (UIImage?) -> Void) {
+        interactor?.loadImage(for: character, completion: completion)
     }
 }
