@@ -8,18 +8,18 @@
 import UIKit
 import SnapKit
 
-final class CharacterViewController: UIViewController {
-    private let presenter: CharacterPresenterProtocol
-    private let dataSource: CharacterDataSourceProtocol
-
+final class CharactersViewController: UIViewController {
     private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.separatorStyle = .none
         return tableView
     }()
 
-    init(presenter: CharacterPresenterProtocol,
-         dataSource: CharacterDataSourceProtocol
+    private let presenter: CharactersPresenterProtocol
+    private let dataSource: CharactersDataSourceProtocol
+
+    init(presenter: CharactersPresenterProtocol,
+         dataSource: CharactersDataSourceProtocol
     ) {
         self.presenter = presenter
         self.dataSource = dataSource
@@ -49,8 +49,8 @@ final class CharacterViewController: UIViewController {
 
         tableView.delegate = self
         tableView.dataSource = dataSource
-        tableView.register(CharacterTableViewCell.self,
-                           forCellReuseIdentifier: CharacterTableViewCell.id)
+        tableView.register(CharactersTableViewCell.self,
+                           forCellReuseIdentifier: CharactersTableViewCell.id)
 
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -59,7 +59,7 @@ final class CharacterViewController: UIViewController {
 }
 
 // MARK: - CharacterViewProtocol
-extension CharacterViewController: CharacterViewProtocol {
+extension CharactersViewController: CharactersViewProtocol {
     func displayCharacters(_ characters: [Character]) {
         dataSource.characters = characters
         tableView.reloadData()
@@ -73,7 +73,7 @@ extension CharacterViewController: CharacterViewProtocol {
 }
 
 // MARK: - UITableViewDelegate
-extension CharacterViewController: UITableViewDelegate {
+extension CharactersViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         128
     }

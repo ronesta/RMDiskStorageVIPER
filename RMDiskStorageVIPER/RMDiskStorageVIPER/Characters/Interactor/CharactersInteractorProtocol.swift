@@ -6,10 +6,7 @@
 //
 
 import Foundation
-import UIKit.UIImage
 
-protocol CharacterInteractorProtocol: AnyObject {
+protocol CharactersInteractorProtocol: AnyObject {
     func getCharacters()
-
-    func loadImage(for character: Character, completion: @escaping (UIImage?) -> Void)
 }

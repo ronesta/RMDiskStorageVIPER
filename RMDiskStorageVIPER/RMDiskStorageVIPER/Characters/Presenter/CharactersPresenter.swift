@@ -6,15 +6,18 @@
 //
 
 import Foundation
-import UIKit.UIImage
 
-final class CharacterPresenter: CharacterPresenterProtocol {
-    weak var view: CharacterViewProtocol?
-    var interactor: CharacterInteractorProtocol?
-    var router: CharacterRouterProtocol?
+final class CharactersPresenter: CharactersPresenterProtocol {
+    weak var view: CharactersViewProtocol?
+
+    private let interactor: CharactersInteractorProtocol
+
+    init(interactor: CharactersInteractorProtocol) {
+        self.interactor = interactor
+    }
 
     func viewDidLoad() {
-        interactor?.getCharacters()
+        interactor.getCharacters()
     }
 
     func charactersFetched(_ characters: [Character]) {
@@ -23,9 +26,5 @@ final class CharacterPresenter: CharacterPresenterProtocol {
 
     func charactersFetchFailed(with error: Error) {
         view?.displayError("Failed to load characters: \(error.localizedDescription)")
-    }
-
-    func fetchImage(for character: Character, completion: @escaping (UIImage?) -> Void) {
-        interactor?.loadImage(for: character, completion: completion)
     }
 }

@@ -8,33 +8,36 @@
 import Foundation
 import UIKit
 
-final class CharacterTableViewDataSource: NSObject, CharacterDataSourceProtocol {
-    private let presenter: CharacterPresenterProtocol
+final class CharactersTableViewDataSource: NSObject, CharactersDataSourceProtocol {
     var characters = [Character]()
 
-    init(presenter: CharacterPresenterProtocol) {
-        self.presenter = presenter
+    private let imageLoader: ImageLoaderProtocol
+
+    init(imageLoader: ImageLoaderProtocol) {
+        self.imageLoader = imageLoader
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        characters.count
+        return characters.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: CharacterTableViewCell.id,
-            for: indexPath) as? CharacterTableViewCell else {
+            withIdentifier: CharactersTableViewCell.id,
+            for: indexPath
+        ) as? CharactersTableViewCell else {
             return UITableViewCell()
         }
 
         let character = characters[indexPath.row]
 
-        presenter.fetchImage(for: character) { loadedImage in
+        imageLoader.loadImage(from: character.image) { image in
             DispatchQueue.main.async {
-                guard let cell = tableView.cellForRow(at: indexPath) as? CharacterTableViewCell else {
+                guard let currentCell = tableView.cellForRow(at: indexPath) as? CharactersTableViewCell else {
                     return
                 }
-                cell.configure(with: character, image: loadedImage)
+
+                currentCell.configure(with: character, image: image)
             }
         }
 
