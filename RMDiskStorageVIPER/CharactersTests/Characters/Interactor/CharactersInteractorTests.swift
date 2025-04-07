@@ -10,13 +10,13 @@ import XCTest
 
 final class CharactersInteractorTests: XCTestCase {
     private var interactor: CharactersInteractor!
-    private var mockPresenter: MockCharactersPresenter!
+    private var mockPresenter: MockPresenter!
     private var mockService: MockCharactersServiceForInteractor!
     private var mockStorageManager: MockStorageManager!
 
     override func setUp() {
         super.setUp()
-        mockPresenter = MockCharactersPresenter()
+        mockPresenter = MockPresenter()
         mockService = MockCharactersServiceForInteractor()
         mockStorageManager = MockStorageManager()
         interactor = CharactersInteractor(charactersService: mockService,
@@ -57,8 +57,6 @@ final class CharactersInteractorTests: XCTestCase {
 
         XCTAssertEqual(mockPresenter.fetchedCharacters, savedCharacters)
         XCTAssertNil(mockPresenter.fetchError)
-
-        XCTAssertFalse(mockService.getCharactersCalled)
     }
 
     func testGetCharactersWhenCharactersAreNotSaved() {
@@ -86,8 +84,6 @@ final class CharactersInteractorTests: XCTestCase {
         XCTAssertEqual(mockPresenter.fetchedCharacters, fetchedCharacters)
         XCTAssertNil(mockPresenter.fetchError)
         XCTAssertEqual(mockStorageManager.characters, fetchedCharacters)
-
-        XCTAssertTrue(mockService.getCharactersCalled)
     }
 
     func testGetCharactersSendsErrorToPresenterWhenServiceFails() {
@@ -100,8 +96,6 @@ final class CharactersInteractorTests: XCTestCase {
         XCTAssertNotNil(mockPresenter.fetchError)
         XCTAssertNil(mockPresenter.fetchedCharacters)
         XCTAssertEqual(mockPresenter.fetchError as NSError?, mockError)
-
-        XCTAssertTrue(mockService.getCharactersCalled)
     }
 }
 

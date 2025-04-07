@@ -11,12 +11,12 @@ import XCTest
 final class CharactersPresenterTests: XCTestCase {
     private var presenter: CharactersPresenter!
     private var mockView: MockCharactersView!
-    private var mockInteractor: MockCharactersInteractor!
+    private var mockInteractor: MockInteractor!
 
     override func setUp() {
         super.setUp()
         mockView = MockCharactersView()
-        mockInteractor = MockCharactersInteractor()
+        mockInteractor = MockInteractor()
         presenter = CharactersPresenter(interactor: mockInteractor)
         presenter.view = mockView
     }
