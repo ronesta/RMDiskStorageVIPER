@@ -21,7 +21,6 @@ final class CharactersAssembly {
 
         let interactor = CharactersInteractor(
             charactersService: charactersService,
-            imageLoader: imageLoader,
             storageManager: storageManager
         )
         let presenter = CharactersPresenter(interactor: interactor)

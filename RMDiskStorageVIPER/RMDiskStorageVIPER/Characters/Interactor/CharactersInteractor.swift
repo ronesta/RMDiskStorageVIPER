@@ -11,15 +11,12 @@ final class CharactersInteractor: CharactersInteractorProtocol {
     weak var presenter: CharactersPresenterProtocol?
 
     private let charactersService: CharactersServiceProtocol
-    private let imageLoader: ImageLoaderProtocol
     private let storageManager: StorageManagerProtocol
 
     init(charactersService: CharactersServiceProtocol,
-         imageLoader: ImageLoaderProtocol,
          storageManager: StorageManagerProtocol
     ) {
         self.charactersService = charactersService
-        self.imageLoader = imageLoader
         self.storageManager = storageManager
     }
 
