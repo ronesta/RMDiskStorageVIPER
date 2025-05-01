@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol CharactersInteractorProtocol: AnyObject {
+protocol CharactersInteractorInputProtocol: AnyObject {
     func getCharacters()
 }

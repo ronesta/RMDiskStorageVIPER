@@ -16,10 +16,10 @@ final class CharactersViewController: UIViewController {
         return tableView
     }()
 
-    private let presenter: CharactersPresenterProtocol
+    private let presenter: CharactersInteractorOutputProtocol
     private let dataSource: CharactersDataSourceProtocol
 
-    init(presenter: CharactersPresenterProtocol,
+    init(presenter: CharactersInteractorOutputProtocol,
          dataSource: CharactersDataSourceProtocol
     ) {
         self.presenter = presenter
@@ -59,8 +59,8 @@ final class CharactersViewController: UIViewController {
     }
 }
 
-// MARK: - CharacterViewProtocol
-extension CharactersViewController: CharactersViewProtocol {
+// MARK: - CharactersViewInputProtocol
+extension CharactersViewController: CharactersViewInputProtocol {
     func displayCharacters(_ characters: [Character]) {
         dataSource.characters = characters
         tableView.reloadData()

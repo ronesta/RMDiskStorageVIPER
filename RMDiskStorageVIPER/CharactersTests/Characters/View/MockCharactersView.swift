@@ -7,7 +7,7 @@
 
 @testable import RMDiskStorageVIPER
 
-final class MockCharactersView: CharactersViewProtocol {
+final class MockCharactersView: CharactersViewInputProtocol {
     private(set) var characters: [Character]?
     private(set) var errorMessage: String?
 

@@ -7,8 +7,8 @@
 
 import Foundation
 
-final class CharactersInteractor: CharactersInteractorProtocol {
-    weak var presenter: CharactersPresenterProtocol?
+final class CharactersInteractor: CharactersInteractorInputProtocol {
+    weak var presenter: CharactersInteractorOutputProtocol?
 
     private let charactersService: CharactersServiceProtocol
     private let storageManager: StorageManagerProtocol

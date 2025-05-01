@@ -8,7 +8,7 @@
 import XCTest
 @testable import RMDiskStorageVIPER
 
-final class MockInteractor: CharactersInteractorProtocol {
+final class MockInteractor: CharactersInteractorInputProtocol {
     private(set) var getCharactersCalled = false
 
     func getCharacters() {

@@ -11,13 +11,13 @@ import XCTest
 final class CharactersInteractorTests: XCTestCase {
     private var interactor: CharactersInteractor!
     private var mockPresenter: MockPresenter!
-    private var mockService: MockCharactersServiceForInteractor!
+    private var mockService: MockCharactersService!
     private var mockStorageManager: MockStorageManager!
 
     override func setUp() {
         super.setUp()
         mockPresenter = MockPresenter()
-        mockService = MockCharactersServiceForInteractor()
+        mockService = MockCharactersService()
         mockStorageManager = MockStorageManager()
         interactor = CharactersInteractor(charactersService: mockService,
                                           storageManager: mockStorageManager
@@ -77,7 +77,7 @@ final class CharactersInteractorTests: XCTestCase {
                      )
         ]
 
-        mockService.resultToReturn = .success(fetchedCharacters)
+        mockService.stubbedCharactersResult = .success(fetchedCharacters)
 
         interactor.getCharacters()
 
@@ -89,7 +89,7 @@ final class CharactersInteractorTests: XCTestCase {
     func testGetCharactersSendsErrorToPresenterWhenServiceFails() {
         let mockError = NSError(domain: "Test", code: 0, userInfo: nil)
 
-        mockService.resultToReturn = .failure(mockError)
+        mockService.stubbedCharactersResult = .failure(mockError)
 
         interactor.getCharacters()
 

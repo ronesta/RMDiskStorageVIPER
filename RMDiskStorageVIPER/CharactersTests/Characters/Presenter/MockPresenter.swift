@@ -8,7 +8,7 @@
 import XCTest
 @testable import RMDiskStorageVIPER
 
-final class MockPresenter: CharactersPresenterProtocol {
+final class MockPresenter: CharactersInteractorOutputProtocol {
     private(set) var fetchedCharacters: [Character]?
     private(set) var fetchError: Error?
     private(set) var viewDidLoadCalled = false

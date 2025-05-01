@@ -7,12 +7,12 @@
 
 import Foundation
 
-final class CharactersPresenter: CharactersPresenterProtocol {
-    weak var view: CharactersViewProtocol?
+final class CharactersPresenter: CharactersInteractorOutputProtocol {
+    weak var view: CharactersViewInputProtocol?
 
-    private let interactor: CharactersInteractorProtocol
+    private let interactor: CharactersInteractorInputProtocol
 
-    init(interactor: CharactersInteractorProtocol) {
+    init(interactor: CharactersInteractorInputProtocol) {
         self.interactor = interactor
     }
 

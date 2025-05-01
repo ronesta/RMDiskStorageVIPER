@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol CharactersPresenterProtocol: AnyObject {
+protocol CharactersInteractorOutputProtocol: AnyObject {
     func viewDidLoad()
 
     func charactersFetched(_ characters: [Character])
