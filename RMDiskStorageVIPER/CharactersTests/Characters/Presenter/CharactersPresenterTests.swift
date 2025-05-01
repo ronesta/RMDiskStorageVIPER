@@ -28,13 +28,19 @@ final class CharactersPresenterTests: XCTestCase {
         super.tearDown()
     }
 
-    func testViewDidLoadCallsInteractorGetCharacters() {
+    func testGivenPresenter_WhenViewDidLoad_ThenInteractorGetCharactersCalled() {
+        // Given
+        // Presenter initialized with mockInteractor
+
+        // When
         presenter.viewDidLoad()
 
+        // Then
         XCTAssertTrue(mockInteractor.getCharactersCalled)
     }
 
-    func testCharactersFetchedUpdateViewWithCharacters() {
+    func testGivenFetchedCharacters_WhenCharactersFetched_ThenViewIsUpdatedWithCharacters() {
+        // Given
         let mockCharacters = [
             Character(name: "Summer Smith",
                       status: "Alive",
@@ -52,18 +58,23 @@ final class CharactersPresenterTests: XCTestCase {
                      )
         ]
 
+        // When
         presenter.charactersFetched(mockCharacters)
 
+        // Then
         XCTAssertEqual(mockView.displayCharactersCallCount, 1)
         XCTAssertEqual(mockView.displayCharactersArgsCharacters.first, mockCharacters)
         XCTAssertEqual(mockView.displayErrorCallCount, 0)
     }
 
-    func testCharactersFetchFailedShowsErrorInView() {
+    func testGivenFetchFailure_WhenCharactersFetchFailed_ThenErrorIsShownInView() {
+        // Given
         let mockError = NSError(domain: "Test", code: 0, userInfo: nil)
 
+        // When
         presenter.charactersFetchFailed(with: mockError)
-        
+
+        // Then
         XCTAssertEqual(mockView.displayErrorCallCount, 1)
         XCTAssertEqual(mockView.displayCharactersCallCount, 0)
     }

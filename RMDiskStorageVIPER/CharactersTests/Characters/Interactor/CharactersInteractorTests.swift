@@ -33,7 +33,8 @@ final class CharactersInteractorTests: XCTestCase {
         super.tearDown()
     }
 
-    func testGetCharactersLoadSavedCharacters() {
+    func test_GivenSavedCharacters_WhenGetCharacters_ThenPresenterReceivesSavedCharacters() {
+        // Given
         let savedCharacters = [
             Character(name: "Summer Smith",
                       status: "Alive",
@@ -53,14 +54,17 @@ final class CharactersInteractorTests: XCTestCase {
 
         mockStorageManager.saveCharacters(savedCharacters)
 
+        // When
         interactor.getCharacters()
 
+        // Then
         XCTAssertEqual(mockPresenter.charactersFetchedCallCount, 1)
         XCTAssertEqual(mockPresenter.charactersFetchedArgsCharacters.first, savedCharacters)
         XCTAssertEqual(mockPresenter.charactersFetchFailedCallCount, 0)
     }
 
-    func testGetCharactersWhenCharactersAreNotSaved() {
+    func test_GivenNoSavedCharacters_WhenGetCharacters_ThenPresenterReceivesFetchedCharactersAndSavesThem() {
+        // Given
         let fetchedCharacters = [
             Character(name: "Summer Smith",
                       status: "Alive",
@@ -80,8 +84,10 @@ final class CharactersInteractorTests: XCTestCase {
 
         mockService.stubbedCharactersResult = .success(fetchedCharacters)
 
+        // When
         interactor.getCharacters()
 
+        // Then
         XCTAssertEqual(mockPresenter.charactersFetchedCallCount, 1)
         XCTAssertEqual(mockPresenter.charactersFetchedArgsCharacters.first, fetchedCharacters)
         XCTAssertEqual(mockPresenter.charactersFetchFailedCallCount, 0)
@@ -89,13 +95,16 @@ final class CharactersInteractorTests: XCTestCase {
 
     }
 
-    func testGetCharactersSendsErrorToPresenterWhenServiceFails() {
+    func test_GivenNoSavedCharacters_WhenGetCharactersFails_ThenPresenterReceivesError() {
+        // Given
         let mockError = NSError(domain: "Test", code: 0, userInfo: nil)
 
         mockService.stubbedCharactersResult = .failure(mockError)
 
+        // When
         interactor.getCharacters()
 
+        // Then
         XCTAssertEqual(mockPresenter.charactersFetchFailedCallCount, 1)
         XCTAssertEqual(mockPresenter.charactersFetchFailedArgsErrors.first as NSError?, mockError)
         XCTAssertEqual(mockPresenter.charactersFetchedCallCount, 0)
