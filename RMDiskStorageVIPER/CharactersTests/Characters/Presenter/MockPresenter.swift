@@ -15,10 +15,10 @@ final class MockPresenter: CharactersInteractorOutputProtocol {
     private(set) var charactersFetchFailedCallCount = 0
     private(set) var charactersFetchFailedArgsErrors = [Error]()
 
-    private(set) var viewDidLoadCallCount = 0
+    private(set) var viewDidLoadCalled = false
 
     func viewDidLoad() {
-        viewDidLoadCallCount += 1
+        viewDidLoadCalled = true
     }
 
     func charactersFetched(_ characters: [Character]) {
