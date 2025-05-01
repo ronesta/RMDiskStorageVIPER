@@ -55,8 +55,9 @@ final class CharactersInteractorTests: XCTestCase {
 
         interactor.getCharacters()
 
-        XCTAssertEqual(mockPresenter.fetchedCharacters, savedCharacters)
-        XCTAssertNil(mockPresenter.fetchError)
+        XCTAssertEqual(mockPresenter.charactersFetchedCallCount, 1)
+        XCTAssertEqual(mockPresenter.charactersFetchedArgsCharacters.first, savedCharacters)
+        XCTAssertEqual(mockPresenter.charactersFetchFailedCallCount, 0)
     }
 
     func testGetCharactersWhenCharactersAreNotSaved() {
@@ -81,9 +82,11 @@ final class CharactersInteractorTests: XCTestCase {
 
         interactor.getCharacters()
 
-        XCTAssertEqual(mockPresenter.fetchedCharacters, fetchedCharacters)
-        XCTAssertNil(mockPresenter.fetchError)
+        XCTAssertEqual(mockPresenter.charactersFetchedCallCount, 1)
+        XCTAssertEqual(mockPresenter.charactersFetchedArgsCharacters.first, fetchedCharacters)
+        XCTAssertEqual(mockPresenter.charactersFetchFailedCallCount, 0)
         XCTAssertEqual(mockStorageManager.characters, fetchedCharacters)
+
     }
 
     func testGetCharactersSendsErrorToPresenterWhenServiceFails() {
@@ -93,9 +96,9 @@ final class CharactersInteractorTests: XCTestCase {
 
         interactor.getCharacters()
 
-        XCTAssertNotNil(mockPresenter.fetchError)
-        XCTAssertNil(mockPresenter.fetchedCharacters)
-        XCTAssertEqual(mockPresenter.fetchError as NSError?, mockError)
+        XCTAssertEqual(mockPresenter.charactersFetchFailedCallCount, 1)
+        XCTAssertEqual(mockPresenter.charactersFetchFailedArgsErrors.first as NSError?, mockError)
+        XCTAssertEqual(mockPresenter.charactersFetchedCallCount, 0)
+
     }
 }
-

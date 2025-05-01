@@ -9,19 +9,25 @@ import XCTest
 @testable import RMDiskStorageVIPER
 
 final class MockPresenter: CharactersInteractorOutputProtocol {
-    private(set) var fetchedCharacters: [Character]?
-    private(set) var fetchError: Error?
-    private(set) var viewDidLoadCalled = false
+    private(set) var charactersFetchedCallCount = 0
+    private(set) var charactersFetchedArgsCharacters = [[Character]]()
+
+    private(set) var charactersFetchFailedCallCount = 0
+    private(set) var charactersFetchFailedArgsErrors = [Error]()
+
+    private(set) var viewDidLoadCallCount = 0
 
     func viewDidLoad() {
-        viewDidLoadCalled = true
+        viewDidLoadCallCount += 1
     }
 
     func charactersFetched(_ characters: [Character]) {
-        fetchedCharacters = characters
+        charactersFetchedCallCount += 1
+        charactersFetchedArgsCharacters.append(characters)
     }
 
     func charactersFetchFailed(with error: Error) {
-        fetchError = error
+        charactersFetchFailedCallCount += 1
+        charactersFetchFailedArgsErrors.append(error)
     }
 }

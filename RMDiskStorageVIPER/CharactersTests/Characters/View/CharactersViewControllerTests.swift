@@ -33,7 +33,7 @@ final class CharactersViewControllerTests: XCTestCase {
     func testViewDidLoadCallsPresenterViewDidLoad() {
         viewController.viewDidLoad()
 
-        XCTAssertTrue(mockPresenter.viewDidLoadCalled)
+        XCTAssertEqual(mockPresenter.viewDidLoadCallCount, 1)
     }
 
     func testSetupViews() {
