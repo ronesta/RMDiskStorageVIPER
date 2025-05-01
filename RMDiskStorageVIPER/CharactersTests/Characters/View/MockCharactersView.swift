@@ -8,14 +8,19 @@
 @testable import RMDiskStorageVIPER
 
 final class MockCharactersView: CharactersViewInputProtocol {
-    private(set) var characters: [Character]?
-    private(set) var errorMessage: String?
+    private(set) var displayCharactersCallCount = 0
+    private(set) var displayCharactersArgsCharacters = [[Character]]()
+
+    private(set) var displayErrorCallCount = 0
+    private(set) var displayErrorArgsMessages = String()
 
     func displayCharacters(_ characters: [Character]) {
-        self.characters = characters
+        displayCharactersCallCount += 1
+        displayCharactersArgsCharacters.append(characters)
     }
 
     func displayError(_ message: String) {
-        errorMessage = message
+        displayErrorCallCount += 1
+        displayErrorArgsMessages.append(message)
     }
 }

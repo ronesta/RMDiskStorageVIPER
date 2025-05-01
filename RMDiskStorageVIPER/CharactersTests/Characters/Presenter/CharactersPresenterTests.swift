@@ -54,7 +54,9 @@ final class CharactersPresenterTests: XCTestCase {
 
         presenter.charactersFetched(mockCharacters)
 
-        XCTAssertEqual(mockView.characters, mockCharacters)
+        XCTAssertEqual(mockView.displayCharactersCallCount, 1)
+        XCTAssertEqual(mockView.displayCharactersArgsCharacters.first, mockCharacters)
+        XCTAssertEqual(mockView.displayErrorCallCount, 0)
     }
 
     func testCharactersFetchFailedShowsErrorInView() {
@@ -62,7 +64,7 @@ final class CharactersPresenterTests: XCTestCase {
 
         presenter.charactersFetchFailed(with: mockError)
         
-        XCTAssertNotNil(mockView.errorMessage)
-        XCTAssertNil(mockView.characters)
+        XCTAssertEqual(mockView.displayErrorCallCount, 1)
+        XCTAssertEqual(mockView.displayCharactersCallCount, 0)
     }
 }
