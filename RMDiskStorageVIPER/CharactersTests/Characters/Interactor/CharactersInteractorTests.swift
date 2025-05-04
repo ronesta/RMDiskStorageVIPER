@@ -19,8 +19,9 @@ final class CharactersInteractorTests: XCTestCase {
         mockPresenter = MockPresenter()
         mockService = MockCharactersService()
         mockStorageManager = MockStorageManager()
-        interactor = CharactersInteractor(charactersService: mockService,
-                                          storageManager: mockStorageManager
+        interactor = CharactersInteractor(
+            charactersService: mockService,
+            storageManager: mockStorageManager
         )
         interactor.presenter = mockPresenter
     }
